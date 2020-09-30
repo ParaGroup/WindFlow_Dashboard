@@ -20,9 +20,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "local-deploy": "cp -r ./build/* /home/fausto/GitHub/Tesi/Server/src/main/resources/static/",
-    "remote-deploy": "scp -r ./build/* frasca@131.114.3.249:/home/frasca/Tesi/Server/src/main/resources/static/"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

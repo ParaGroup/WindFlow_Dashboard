@@ -2,13 +2,9 @@ package com.server;
 
 import java.io.IOException;
 import java.net.BindException;
-import com.sun.tools.javac.Main;
 import com.server.CustomServer.*;
-import com.server.SpringServer.*;
 import javax.annotation.PreDestroy;
-import org.apache.commons.logging.Log;
 import com.server.ServerState.ServerState;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

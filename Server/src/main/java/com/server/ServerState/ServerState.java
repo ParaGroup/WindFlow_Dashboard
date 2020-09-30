@@ -1,10 +1,7 @@
 package com.server.ServerState;
 
-import java.util.Enumeration;
-import com.google.gson.JsonArray;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import com.server.ServerState.SpringRequest.StatisticsApplicationWF;
 
 // ServerState class
 public class ServerState
@@ -112,24 +109,10 @@ public class ServerState
         return applicationWF;
     }
 
-    // getStatApp method
-    public StatisticsApplicationWF getStatApp(Integer idApp)
-    {
-        ApplicationWF applicationWF = getApp(idApp);
-        return applicationWF == null ? null: new StatisticsApplicationWF(applicationWF);
-    }
-
     // getStatOperator method
     public String getStatOperator(String idApp, String idOperator)
     {
         ApplicationWF applicationWF = getApp(Integer.valueOf(idApp));
         return applicationWF == null ? null: applicationWF.getOperatorStatistics(idOperator);
-    }
-
-    // getGraphWF method
-    public String getGraphWF(Integer idApp)
-    {
-        ApplicationWF applicationWF = getApp(idApp);
-        return applicationWF.getReport();
     }
 }

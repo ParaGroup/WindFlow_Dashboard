@@ -2,27 +2,24 @@ package com.server.ServerState;
 
 import java.util.*;
 import com.google.gson.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
-import com.github.ggalmazor.ltdownsampling.Point;
-import com.github.ggalmazor.ltdownsampling.LTThreeBuckets;
 
-// ApplicationWF method
+// ApplicationWF class
 public class ApplicationWF
 {
     private int idApp;
+    private Gson gson;
     private String name;
     private String graph;
     private String report;
+    private String remoteAddress;
     private String startTimeApplication;
     private String finishTimeApplication;
-    private String remoteAddress;
     private boolean interrupted;
     private List<OperatorApp> operatorsHistoricalStatistics;
-    private Gson gson;
 
     // Constructor
     public ApplicationWF(int idApp, String graph, String remoteAddress)
@@ -289,7 +286,6 @@ public class ApplicationWF
         }
         int actual_inputs_received = inputs_received - operatorApp.getLastInputsReceived(number_stage);
         int actual_outputs_sent = outputs_sent - operatorApp.getLastOutputsSent(number_stage);;
-        // System.out.println("New Report "+actual_inputs_received+" "+actual_outputs_sent+" "+operatorApp.getOperator_name()+" "+operatorApp.getLastInputsReceived(number_stage)+" "+operatorApp.getLastOutputsSent(number_stage));
         operatorApp.putNewDataReport(number_stage, actual_inputs_received, actual_outputs_sent);
         operatorApp.updateInputsOutputs(number_stage, inputs_received, outputs_sent);
     }

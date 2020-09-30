@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import java.util.concurrent.atomic.AtomicInteger;
 import com.github.ggalmazor.ltdownsampling.Point;
 import com.github.ggalmazor.ltdownsampling.LTThreeBuckets;
@@ -16,15 +15,10 @@ class HistoricalData
 {
     private List<Point> inputs_received;
     private List<Point> outputs_sent;
-    private List<Point> downsampling_inputs_received;
-    private List<Point> downsampling_outputs_sent;
     private List<Point> pointsGraphInputs;
     private List<Point> pointsGraphOutputs;
-    private int thresholdDownSampling = 250;
-    private int updateDownsampling = 5;
+    private int thresholdDownSampling = 250; //number of samples after which the algorithm is applied
     private int refreshRateData = 5;
-    private AtomicInteger newDownsampling_input = new AtomicInteger(0);
-    private AtomicInteger newDownsampling_output = new AtomicInteger(0);
     private AtomicInteger lastInputsSize = new AtomicInteger(0);
     private AtomicInteger lastOutputsSize = new AtomicInteger(0);
 
@@ -33,8 +27,6 @@ class HistoricalData
     {
         inputs_received = new Vector<>();
         outputs_sent = new Vector<>();
-        downsampling_inputs_received = new Vector<>();
-        downsampling_outputs_sent = new Vector<>();
         pointsGraphInputs = new Vector<>();
         pointsGraphOutputs = new Vector<>();
     }
@@ -49,27 +41,17 @@ class HistoricalData
     }
 
     // getInputs_received method
-    public List<Point> getInputs_received(boolean downsampling, boolean isTerminated)
+    public List<Point> getInputs_received(boolean isTerminated)
     {
-        if (!downsampling) {
-            return this.inputs_received; // TODO: to be removed
-        }
-        else {
-            pointsGraphInputs = getListResponse(this.inputs_received, this.pointsGraphInputs, this.lastInputsSize, isTerminated);
-            return pointsGraphInputs;
-        }
+        pointsGraphInputs = getListResponse(this.inputs_received, this.pointsGraphInputs, this.lastInputsSize, isTerminated);
+        return pointsGraphInputs;
     }
 
     // getOutputs_sent method
-    public List<Point> getOutputs_sent(boolean downsampling, boolean isTerminated)
+    public List<Point> getOutputs_sent( boolean isTerminated)
     {
-        if (!downsampling) {
-            return this.outputs_sent;
-        }
-        else{
-            pointsGraphOutputs = getListResponse(this.outputs_sent, this.pointsGraphOutputs, this.lastOutputsSize, isTerminated);
-            return pointsGraphOutputs;
-        }
+        pointsGraphOutputs = getListResponse(this.outputs_sent, this.pointsGraphOutputs, this.lastOutputsSize, isTerminated);
+        return pointsGraphOutputs;
     }
 
     // getListResponse method
@@ -111,8 +93,8 @@ public class OperatorApp
     private HistoricalData historical_data_2;
     private List<OperatorApp> nestedReplicas;
     private boolean areNestedOps;
-    private boolean isPF_WMR;
     private boolean terminated;
+    private boolean isPF_WMR;
 
     // Constructor I
     public OperatorApp(String operator_name, String operator_type)
@@ -128,7 +110,7 @@ public class OperatorApp
     }
 
     // Constructor II
-    public OperatorApp(String operator_name, String operator_type, boolean isPF_WMR){ // PF & WMR operators
+    public OperatorApp(String operator_name, String operator_type, boolean isPF_WMR){ // PF & WMR operators (isPF_WMR parameter is used for differentiate Constructor I from Contstructor II)
         this.operator_name = operator_name;
         this.operator_type = operator_type;
         this.last_inputs_received_1 = 0;
@@ -228,11 +210,9 @@ public class OperatorApp
     public String getJsonHistoricalData()
     {
         JsonObject response = new JsonObject();
-        response.add("Historical_data",jsonHistoricalData(historical_data_1.getInputs_received(true, terminated), historical_data_1.getOutputs_sent(true, terminated)));
-        // response.add("full",jsonHistoricalData(historical_data_1.getInputs_received(false, terminated), historical_data_1.getOutputs_sent(false, terminated))); // TODO delete first parameter
+        response.add("Historical_data",jsonHistoricalData(historical_data_1.getInputs_received(terminated), historical_data_1.getOutputs_sent(terminated)));
         if (isPF_WMR) {
-            response.add("Historical_data_2",this.jsonHistoricalData(historical_data_2.getInputs_received(true, terminated), historical_data_2.getOutputs_sent(true, terminated)));
-            // response.add("full_2",jsonHistoricalData(historical_data_2.getInputs_received(false, terminated),historical_data_2.getOutputs_sent(false, terminated)));
+            response.add("Historical_data_2",this.jsonHistoricalData(historical_data_2.getInputs_received(terminated), historical_data_2.getOutputs_sent(terminated)));
         }
         return new Gson().toJson(response);
     }

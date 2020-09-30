@@ -2,27 +2,19 @@ package com.server.CustomServer;
 
 import com.google.gson.Gson;
 import java.util.Set;
-import java.util.Date;
 import java.io.Reader;
-import java.time.Clock;
 import java.util.Iterator;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.util.concurrent.*;
-import java.time.LocalDateTime;
 import java.net.InetSocketAddress;
 import org.apache.commons.logging.Log;
-import java.nio.file.StandardOpenOption;
 import com.server.ServerState.ServerState;
 import org.apache.commons.logging.LogFactory;
-import com.sun.tools.jconsole.JConsoleContext;
-//import com.server.SpringServer.MessageHandler;
-import org.springframework.web.socket.TextMessage;
 
 // ServerWF class
 public class ServerWF implements Runnable
@@ -44,10 +36,9 @@ public class ServerWF implements Runnable
     public static final String PURPLE_BOLD = "\033[1;35m"; // PURPLE
     public static final String CYAN_BOLD = "\033[1;36m";   // CYAN
     public static final String WHITE_BOLD = "\033[1;37m";  // WHITE
-    // json file parameters
+
     private static int TIMEOUT_SELECTOR;
-    private static String SOCKET_ADDRESS;
-    private static int THREAD_MAIN_SLEEP = 200;
+    private static int THREAD_MAIN_SLEEP = 200; //sleep time when throw RejectedExecutionException
     private String serverWF = ANSI_YELLOW+"[Server WF] "+ ANSI_RESET;
     private Selector selector;
     private ServerState serverState;
@@ -63,10 +54,9 @@ public class ServerWF implements Runnable
         this.serverState = ServerState.getInstance();
     }
 
-    // method to inizialize the server
+    // method for initialize the server
     public void configServer() throws IOException
     {
-        // ServerSocketChannel serverSocketChannel;
         ServerConfig serverConfig = null;
         Gson gson = new Gson();
         log.info(serverWF+"Reading server configuration");
@@ -171,7 +161,7 @@ public class ServerWF implements Runnable
             if (clientOp == ClientOperation.NEW_APP) {
                 do {
                     try {
-                        threadPool.execute(new WorkerWF(key,selector,idClient,clientOp));
+                        threadPool.execute(new WorkerWF(key,idClient,clientOp));
                         sendTask = true;
                     }
                     catch (RejectedExecutionException e) {
@@ -189,7 +179,7 @@ public class ServerWF implements Runnable
             else {
                 do {
                     try {
-                        threadPool.execute(new WorkerWF(key,selector,clientOp));
+                        threadPool.execute(new WorkerWF(key,clientOp));
                         sendTask = true;
                     }
                     catch (RejectedExecutionException e){
