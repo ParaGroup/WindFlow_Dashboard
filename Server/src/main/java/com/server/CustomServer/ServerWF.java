@@ -166,7 +166,7 @@ public class ServerWF implements Runnable
                     }
                     catch (RejectedExecutionException e) {
                         try {
-                            System.out.println(serverWF+"\tRejectedExecutionException "+idClient);
+                            log.debug(serverWF+"\tRejectedExecutionException "+idClient);
                             Thread.sleep(THREAD_MAIN_SLEEP);
                         } 
                         catch (InterruptedException interruptedException) {
@@ -184,7 +184,7 @@ public class ServerWF implements Runnable
                     }
                     catch (RejectedExecutionException e){
                         try {
-                            System.out.println(serverWF+"\tRejectedExecutionException"); //todo testare
+                            log.debug(serverWF+"\tRejectedExecutionException");
                             Thread.sleep(THREAD_MAIN_SLEEP);
                         }
                         catch (InterruptedException interruptedException) {
