@@ -13,9 +13,8 @@ public class RequestController
 
 //    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/general")
-    public GeneralInformations general()
-    {
-        return new GeneralInformations(this.serverState);
+    public GeneralInformations general(){
+        return serverState.getGeneralInformations();
     }
 
 //    @CrossOrigin(origins = "http://localhost:3000")

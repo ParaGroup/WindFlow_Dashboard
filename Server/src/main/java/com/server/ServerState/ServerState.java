@@ -1,5 +1,7 @@
 package com.server.ServerState;
 
+import com.server.ServerState.SpringRequest.GeneralInformations;
+
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -114,5 +116,11 @@ public class ServerState
     {
         ApplicationWF applicationWF = getApp(Integer.valueOf(idApp));
         return applicationWF == null ? null: applicationWF.getOperatorStatistics(idOperator);
+    }
+
+    //GeneralInformations method
+    public GeneralInformations getGeneralInformations()
+    {
+        return new GeneralInformations(this.serverState);
     }
 }

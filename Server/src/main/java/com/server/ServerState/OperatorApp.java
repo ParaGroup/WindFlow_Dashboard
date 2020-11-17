@@ -58,7 +58,7 @@ class HistoricalData
     private List<Point> getListResponse(List<Point> list, List<Point> pointsGraph, AtomicInteger lastUpdateSize, boolean isTerminated)
     {
         List<Point> response;
-        if ((isTerminated && list.size()!= lastUpdateSize.get()) || list.size() - lastUpdateSize.get() >= refreshRateData) {
+        if ((isTerminated && list.size()!= lastUpdateSize.get()) || (list.size() - lastUpdateSize.get() >= refreshRateData)){
             if(list.size() > thresholdDownSampling) {
                 response = downSampling(list);
             }
