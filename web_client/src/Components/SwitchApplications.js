@@ -28,7 +28,7 @@ export default function SwitchApplication(props){
           visible={visible}
         >
         <div>
-        <div className="switch-application-legend">ID&nbsp;&nbsp;&nbsp;NOME APP</div>
+        <div className="switch-application-legend">ID&nbsp;&nbsp;&nbsp;APP NAME</div>
           {
             arrayAppSwitch.map(item =>{
               return (

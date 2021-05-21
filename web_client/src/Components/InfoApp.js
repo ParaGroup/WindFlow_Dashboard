@@ -47,7 +47,7 @@ export default function InfoApp(props){
     <Descriptions.Item label="Non-blocking">{paramStatic.nonBlocking}</Descriptions.Item>
     <Descriptions.Item label="Thread pinning">{paramStatic.threadPinning}</Descriptions.Item>
 
-    <Descriptions.Item label=" Memory usage (RSS)">{bytesToSize(paramDynamic.rss_size_kb*1024,2)}</Descriptions.Item>
+    <Descriptions.Item label=" Host Memory usage (RSS)">{bytesToSize(paramDynamic.rss_size_kb*1024,2)}</Descriptions.Item>
     
   </Descriptions>)
   

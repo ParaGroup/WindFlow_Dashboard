@@ -45,7 +45,7 @@ export default function TagConfigurationTableApp(text,record){
 
     return tag(isGPU_1||isGPU_2,true,contentGPU,contentWindow);
   }
-  else if(text === "Advanced"){
+  else if(text === "Windowed"){
     var variable_parameters = record.variable_parameters;
     var isWindowed = record.isWindowed;
     var isGPU = record.isGPU;
@@ -53,7 +53,13 @@ export default function TagConfigurationTableApp(text,record){
     return tag(isGPU,isWindowed,gpuPopoverContent(variable_parameters),windowPopoverContent(variable_parameters))
   }
 
-  return <Tag icon={<ApartmentOutlined />} color="default" style={{fontSize:15}}>{text.toUpperCase()}</Tag>
+  if (record.isGPU) {
+  	return <Tag icon={<ApartmentOutlined />} color="default" style={{fontSize:15}}>{"BASIC GPU"}</Tag>
+  }
+  else {
+  	return <Tag icon={<ApartmentOutlined />} color="default" style={{fontSize:15}}>{"BASIC CPU"}</Tag>
+  }
+  
 }
 
 
@@ -78,7 +84,7 @@ function tag(isGPU,isWindowed,contentGPU,contentWindow){
         { isWindowed ? 
           <Popover content={contentWindow} title={titlePopover("Window Parameters")}  placement="topLeft">
             <Badge status={status} offset={offset}>
-              <Tag icon={<WindowIcon />} color="blue" style={{fontSize:15}}>{isGPU ? "WIN" : "WINDOW"}</Tag>
+              <Tag icon={<WindowIcon />} color="blue" style={{fontSize:15}}>{isGPU ? "WINDOWED_GPU" : "WINDOWED_CPU"}</Tag>
             </Badge>
           </Popover>
           : undefined
@@ -90,7 +96,7 @@ function tag(isGPU,isWindowed,contentGPU,contentWindow){
  //function for manipulate window parameters of the operator
 function windowPopoverContent (variable_parameters) {
   var type = variable_parameters.window_type;
-  var delay = variable_parameters.window_delay;
+  var delay = variable_parameters.lateness;
   var length = variable_parameters.window_length;
   var slide = variable_parameters.window_slide;
   
@@ -118,7 +124,7 @@ function windowPopoverContent (variable_parameters) {
   return(
     <ul style={{ paddingInlineStart:15 }}>
       <li><div className="labelPopover">Type:</div> {type}</li>
-      {type === 'time-based'? <li><div className="labelPopover">Delay:</div> {delay}</li> : undefined}
+      {type === 'time-based'? <li><div className="labelPopover">Lateness:</div> {delay}</li> : undefined}
       <li><div className="labelPopover">Length:</div> {length}</li>
       <li><div className="labelPopover">Slide:</div> {slide}</li>
     </ul>

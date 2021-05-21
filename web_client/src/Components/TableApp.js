@@ -53,7 +53,7 @@ export default function TableApp(props) {
     for(var i in operators){
       var status = props.interrupted ? 'INTERRUPTED' : operators[i].isTerminated ? 'TERMINATED' : 'RUNNING' //check application status
 
-      if(operators[i].Operator_type.includes("Pane_Farm") || operators[i].Operator_type.includes("Win_MapReduce")){
+      if(operators[i].Operator_type.includes("Paned_Windows") || operators[i].Operator_type.includes("MapReduce_Windows")){
         data.push(parse_PF_WMR_Operator(operators[i],i,status));
       }
       else{
@@ -132,12 +132,12 @@ function parseOperator(operator, key, status){
     isGPU: operator.isGPU,
     replicas: operator.Replicas,
     status: [status],
-    configuration: operator.isWindowed || operator.isGPU ? "Advanced" : "Basic", //parameter used for cpu and window tag
+    configuration: operator.isWindowed ? "Windowed" : "Basic", //parameter used for cpu and window tag
     
     variable_parameters:{
       // window parameters
       window_type: operator.Window_type,
-      window_delay: operator.Window_delay,
+      lateness: operator.Lateness,
       window_length: operator.Window_length,
       window_slide: operator.Window_slide,
 
@@ -173,7 +173,7 @@ function parse_PF_WMR_Operator(operator, key, status){
       // window parameters
       window_1: {
         window_type:operator.Window_type_1,
-        window_delay: operator.Window_delay,
+        lateness: operator.Lateness,
         window_length: operator.Window_length_1,
         window_slide: operator.Window_slide_1,
       },

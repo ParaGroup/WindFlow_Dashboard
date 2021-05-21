@@ -190,7 +190,7 @@ export default class InputOutputRate extends React.Component{
 
     return(
       <>
-        <h2 className="title-statistic" style={{marginLeft:35}}>Inputs & outputs rate</h2> {/*TODO cambiare colore*/}
+        <h2 className="title-statistic" style={{marginLeft:35}}>Input & output rates</h2> {/*TODO cambiare colore*/}
         { this.inputData.labels.length === 0 ? 
           <Spin indicator={antIcon} style={{marginBottom:70, marginTop:70, marginLeft:'auto', marginRight:'auto',display:'block'}}/> :
           <GridInputOutputRate

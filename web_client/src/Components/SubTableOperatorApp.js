@@ -28,17 +28,17 @@ export default function SubTableOperatorApp(props){
   }
   
 
-  if(isGPU){
-    var variableFields = [
-      { title: <b className='titleColumnTable'>Kernels launched</b>, dataIndex: 'kernels_launched', key: 'kernels_launched', width: 100, align: 'center', },
-      { title: <b className='titleColumnTable'>Bytes H2D</b>, dataIndex: 'bytes_H2D', key: 'bytes_H2D', width: 110, align: 'center', },
-      { title: <b className='titleColumnTable'>Bytes D2H</b>, dataIndex: 'bytes_D2H', key: 'bytes_D2H', width: 110, align: 'center', },
-    ];
+  // if(isGPU){
+  //   var variableFields = [
+  //     { title: <b className='titleColumnTable'>Kernels launched</b>, dataIndex: 'kernels_launched', key: 'kernels_launched', width: 100, align: 'center', },
+  //     { title: <b className='titleColumnTable'>Bytes H2D</b>, dataIndex: 'bytes_H2D', key: 'bytes_H2D', width: 110, align: 'center', },
+  //     { title: <b className='titleColumnTable'>Bytes D2H</b>, dataIndex: 'bytes_D2H', key: 'bytes_D2H', width: 110, align: 'center', },
+  //   ];
 
-    for(var i in variableFields){
-      columns.push(variableFields[i]);
-    }
-  }
+  //   for(var i in variableFields){
+  //     columns.push(variableFields[i]);
+  //   }
+  // }
 
   if(configuration === "PF_WMR"){
     var variableFields = {title: <b className='titleColumnTable'>Name stage</b>, dataIndex: 'name_stage', key: 'name_stage', width: 100, align: 'center', fixed: 'right'};

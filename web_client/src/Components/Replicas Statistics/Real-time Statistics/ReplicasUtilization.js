@@ -24,7 +24,7 @@ export default function ReplicasUtilization(props){
   
   return (
     <>
-      <h2 className="title-statistic">Avg replicas utilization</h2> {/*TODO cambiare colore*/}
+      <h2 className="title-statistic">Average replicas utilization</h2> {/*TODO cambiare colore*/}
       <List 
         grid={{ gutter: 16, column: 5 }}
         dataSource={data}
