@@ -1,6 +1,5 @@
-/*
- **************************************************************************************
- *  Copyright (c) 2019- Gabriele Mencagli, Fausto Frasca
+/**************************************************************************************
+ *  Copyright (c) 2020- Gabriele Mencagli and Fausto Frasca
  *  
  *  This file is part of WindFlow.
  *  

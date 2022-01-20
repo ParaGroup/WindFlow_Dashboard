@@ -1,5 +1,5 @@
 /**************************************************************************************
- *  Copyright (c) 2019- Gabriele Mencagli
+ *  Copyright (c) 2020- Gabriele Mencagli and Fausto Frasca
  *  
  *  This file is part of WindFlow.
  *  
@@ -20,6 +20,7 @@
  *  and <http://opensource.org/licenses/MIT/>.
  **************************************************************************************
  */
+
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
